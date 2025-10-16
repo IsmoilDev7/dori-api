@@ -1,7 +1,10 @@
 services:
   - type: web
-    name: dori-api
+    name: roboflow-app
     env: python
     plan: free
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app:app
+    startCommand: python app.py
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10
