@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 # Roboflow client
 CLIENT = InferenceHTTPClient(
-    api_url="https://app.roboflow.com/join/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ3b3Jrc3BhY2VJZCI6IkpOU1gyMExlYUtPdmphYTF5a0xjNDhDeGJyaTIiLCJyb2xlIjoib3duZXIiLCJpbnZpdGVyIjoiaXNtb2lsc3VyeG9uQGdtYWlsLmNvbSIsImlhdCI6MTc2MDYxMzA1OX0.RTLrtkbWO3IhCbqYATNg1-oGMFWM30VC01u07dmK5bU",
+    api_url="https://serverless.roboflow.com",
     api_key="vTbOD70e1ttMKG72lDyB"
 )
 
