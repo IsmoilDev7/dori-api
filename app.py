@@ -1,27 +1,33 @@
-from flask import Flask, request, jsonify
+from flask import Flask, render_template, request
 from inference_sdk import InferenceHTTPClient
+import os
 
 app = Flask(__name__)
 
+# Roboflow client
 CLIENT = InferenceHTTPClient(
     api_url="https://serverless.roboflow.com",
     api_key="vTbOD70e1ttMKG72lDyB"
 )
 
 @app.route('/')
-def home():
-    return "Dori sonovchi model Flask’da ishlayapti 🚀"
+def index():
+    return render_template('index.html')
 
 @app.route('/predict', methods=['POST'])
 def predict():
     if 'image' not in request.files:
-        return jsonify({'error': 'Rasm topilmadi'}), 400
-    
+        return "Rasm topilmadi!", 400
+
     image = request.files['image']
-    image.save('input.jpg')
+    image_path = os.path.join("static", image.filename)
+    image.save(image_path)
 
-    result = CLIENT.infer('input.jpg', model_id="dori-sanovchi-model-wctij-wdhbo/1")
-    return jsonify(result)
+    # Roboflow modeli orqali natija olish
+    result = CLIENT.infer(image_path, model_id="dori-sanovchi-model-wctij-wdhbo/1")
+    count = len(result.get("predictions", []))
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    return render_template('result.html', count=count, image_path=image_path, result=result)
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=10000)
