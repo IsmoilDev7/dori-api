@@ -20,7 +20,7 @@ def predict():
         return "Rasm topilmadi!", 400
 
     image = request.files['image']
-    image_path = os.path.join("static", image.filename)
+    image_path = os.path.join("/tmp", image.filename)
     image.save(image_path)
 
     # Roboflow modeli orqali natija olish
